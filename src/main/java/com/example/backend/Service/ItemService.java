@@ -40,5 +40,11 @@ public class ItemService {
         }
     }
     
+    public void deleteItem(int id) {
+        itemsRepo.deleteById(id);
+    }
 
+    public List<Items> getNonClaimedItems() {
+        return itemsRepo.findByIsClaimedFalse();
+    }
 }

@@ -35,6 +35,11 @@ public class ItemController {
         return new ResponseEntity<>(itemService.getItems(), HttpStatus.OK);
     }
 
+    @GetMapping("/AllNotClaimed")
+    public ResponseEntity<List<Items>> getNonClaimedItems() {
+        return new ResponseEntity<>(itemService.getNonClaimedItems(), HttpStatus.OK);
+    }    
+
     @GetMapping("/{id}")
     public ResponseEntity<Items> getItemById(@PathVariable int id){
         Items item = itemService.getItemById(id);
@@ -64,10 +69,18 @@ public class ItemController {
             return new ResponseEntity<>("error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         
-        
-
-
         return new ResponseEntity<>("Item claimed", HttpStatus.OK);
     }
-   
+
+    @GetMapping("/delete/{id}")
+    public ResponseEntity<String> deleteItem(@PathVariable int id) {
+        try {
+            itemService.deleteItem(id);
+            return new ResponseEntity<>("Item deleted successfully", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error deleting item: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 }
