@@ -24,6 +24,7 @@ public class ItemService {
     }
 
     public Items addItem(Items item, MultipartFile imageFile) throws Exception {
+        
         item.setImage(imageFile.getBytes());
         item.setImageName(imageFile.getOriginalFilename());
         item.setImageType(imageFile.getContentType());

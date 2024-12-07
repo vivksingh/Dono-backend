@@ -18,7 +18,7 @@ import com.example.backend.Model.Items;
 import com.example.backend.Service.ItemService;
 
 @RestController
-@CrossOrigin
+@CrossOrigin("*")
 @RequestMapping("/items")
 public class ItemController {
 
@@ -43,12 +43,14 @@ public class ItemController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> addProduct(@RequestPart Items item, @RequestPart("imageFile") MultipartFile imageFile){
+    public ResponseEntity<?> addProduct(@RequestPart Items item, @RequestPart(value = "imageFile", required = false) MultipartFile imageFile){
         try {
+            System.out.println(item);
             Items prod = itemService.addItem(item, imageFile);
             return new ResponseEntity<>(prod, HttpStatus.CREATED);
         } catch(Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            System.out.println(e);
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
    
