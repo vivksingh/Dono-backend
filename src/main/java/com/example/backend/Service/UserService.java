@@ -1,6 +1,7 @@
 package com.example.backend.Service;
 
 import java.sql.Blob;
+import java.util.List;
 
 import javax.sql.rowset.serial.SerialBlob;
 
@@ -48,5 +49,9 @@ public class UserService {
         } catch (Exception e) {
             throw new RuntimeException("Error during user registration: " + e.getMessage(), e);
         }
+    }
+
+    public List<Users> getAllUsers(){
+        return repo.findAll();
     }
 }

@@ -20,7 +20,7 @@ public class ItemService {
     }
 
     public Items getItemById(int id) {
-        return itemsRepo.findById(id).orElse(null);
+        return itemsRepo.findById(id);
     }
 
     public Items addItem(Items item, MultipartFile imageFile) throws Exception {
@@ -30,6 +30,14 @@ public class ItemService {
         item.setImageType(imageFile.getContentType());
         item.setClaimed(false);
         return itemsRepo.save(item);
+    }
+
+    public void claimItem(int id) throws Exception{
+        Items item = getItemById(id);
+        if(item != null){
+            item.setClaimed(true);
+            itemsRepo.save(item);
+        }
     }
     
 

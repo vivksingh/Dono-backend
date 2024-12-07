@@ -1,5 +1,6 @@
 package com.example.backend.Controller;
 
+import com.example.backend.Model.Items;
 import com.example.backend.Model.Users;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import com.example.backend.Utility.AuthRequest;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
-@CrossOrigin
+@CrossOrigin("*")
 @RequestMapping("/users")
 public class UserController {
     @Autowired
@@ -91,12 +93,12 @@ public class UserController {
         String jwtToken = jwtService.generateToken(authRequest.getUsername());
         return new ResponseEntity<>(jwtToken, HttpStatus.OK);
     }
-
-    // @GetMapping("/img/{username}")
-    // public byte[] getimg(@PathVariable String username){ {
-    //     return service
-    // }
     
+    
+    @GetMapping("/all")
+    public ResponseEntity<?> getAllUsers(){
+        return new ResponseEntity<>(service.getAllUsers(), HttpStatus.OK);
+    }
 }
 
  

@@ -18,7 +18,7 @@ import com.example.backend.Model.Items;
 import com.example.backend.Service.ItemService;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin
 @RequestMapping("/items")
 public class ItemController {
 
@@ -52,6 +52,22 @@ public class ItemController {
             System.out.println(e);
             return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("/claim/{id}")
+    public ResponseEntity<?> claimItem(@PathVariable int id){
+        try{
+            itemService.claimItem(id);
+        }
+        catch(Exception e){
+            System.out.println(e);
+            return new ResponseEntity<>("error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        
+        
+
+
+        return new ResponseEntity<>("Item claimed", HttpStatus.OK);
     }
    
 }
